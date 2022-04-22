@@ -25,6 +25,14 @@ $prod = new Api\Handlers\Products();
 $token = new Api\Handlers\Token();
 $order= new  Api\Handlers\Orders();
 
+// Event  Managment Start 
+global $eventsManager;
+$eventsManager = new EventsManager();
+$eventsManager->attach(
+    'notifications',
+    new App\Listener\NotificationsListener()
+);
+
 
 $container = new FactoryDefault();
 $app = new Micro($container);
@@ -45,6 +53,7 @@ $app->before(
             echo json_encode(['msg' => "Please Provide Token"]);
             die;
         } else {
+            $eventsManager->fire('notifications:isTokenExpired',"quick Brown Fox Jump Over the lazy Dog");
             // Validate Token time Expiry
         }
     }
@@ -93,22 +102,10 @@ $app->get(
 $app->post('/createOrder',
 [$order, 'createOrder']);
 
-// Event  Managment Start 
- $eventsManager = new EventsManager();
-$eventsManager->attach(
-    'notifications',
-    new App\Listener\NotificationsListener()
-);
+$app->put('/updateOrderStatus',
+[$order, 'updateOrderStatus']);
 
-// $eventsManager->attach(
-//     'application:beforeHandleRequest',
-//     new App\Listener\NotificationsListener()
-// );
-// Set Event Manager 
-$application->setEventsManager($eventsManager);
-// Set container
-$container->set('eventsManager', $eventsManager);
-// Event Managment End 
+
 
 $_SERVER["REQUEST_URI"] = str_replace("/api", "", $_SERVER["REQUEST_URI"]);
 
