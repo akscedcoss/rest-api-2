@@ -1,0 +1,20 @@
+<?php if (isset($token)) { ?>
+<input type="text" value="<?php echo $token?>" id="myInput" >
+<button onclick="myFunction()">Copy Token</button>
+<?php } ?>
+<form method="POST">
+
+    <h2>Form To Generate Token</h2>
+    <label>Enter name</label>
+    <br><input type="text" name="name">
+    <br> <label>Enter Email</label>
+    <br> <input type="text" name="email">
+    <br> <label>Select Role </label>
+    <select name="role" id="role">
+        <option value="Store Owner">Store Owner</option>
+        <option value="Customer">Customer</option>
+        
+    </select>
+    <br> <button>Submit</button>
+</form>
+</h1>
