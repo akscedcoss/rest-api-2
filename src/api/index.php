@@ -53,8 +53,8 @@ $app->before(
             echo json_encode(['msg' => "Please Provide Token"]);
             die;
         } else {
-            $eventsManager->fire('notifications:isTokenExpired',"quick Brown Fox Jump Over the lazy Dog");
-            // Validate Token time Expiry
+            // Validate Token time Expiry using Components 
+            
         }
     }
 );

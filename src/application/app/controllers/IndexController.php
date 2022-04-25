@@ -11,6 +11,16 @@ define("BASE_API_URL", 'http://192.168.2.59:8080');
  */
 class IndexController extends Controller
 {
+    //  Guzzle  Starts  Here 
+    public function getJsonResponseUsingGuzzle($url)
+    {
+        $client = new Client();
+
+        $response = $client->request('GET', $url);
+
+        $response = json_decode($response->getBody()->getContents());
+        return $response;
+    }
 
     public function indexAction()
     {
@@ -24,14 +34,24 @@ class IndexController extends Controller
         }
     }
 
-    //  Guzzle  Starts  Here 
-    public function getJsonResponseUsingGuzzle($url)
+    public function aksAction()
     {
+        echo "hi";
+
+        $url = "http://192.168.2.30:8080/api/order/create?bearer=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VybmFtZSI6ImFrYXNoIiwiZW1haWwiOiJha2FzaEBnbWFpbC5jb20iLCJpZCI6eyIkb2lkIjoiNjI2Mjg2NmY5N2JjMWRhZDgxMDNhOTY0In19.mi1ijuCYveiAmE8R1eXP6hX3aVyeCOxyXA7d-XuZkII";
         $client = new Client();
+        for ($i = 0; $i < 500000; $i++) {
+            $response = $client->request('POST', $url, [
+                'form_params' => [
+                    'product id' => '626122ddde64f076a9e4977b',
+                    'quantity' => $i. ' subham'
+                ]
+            ]);
+            $response = json_decode($response->getBody()->getContents());
+            print_r($response);
+        }
 
-        $response = $client->request('GET', $url);
 
-        $response = json_decode($response->getBody()->getContents());
-        return $response;
+        die;
     }
 }

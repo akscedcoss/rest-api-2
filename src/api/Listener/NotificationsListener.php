@@ -11,14 +11,5 @@ use Permissions;
 
 class NotificationsListener extends Injectable
 {
-  public function getDataFromToken(Event $event, $component, $token)
-  {
-    $emailAndName = ['name' => 'Aman', 'email' => 'alberte@gmail.com'];
-    return $emailAndName;
-  }
-  public function isTokenExpired(Event $event, $component, $token)
-  {
-    return false;
-  }
-
+ 
 }
